@@ -1,17 +1,16 @@
-const Manager = require('./lib/Manager');
-const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern');
+const Manager = require('./Develop/lib/Manager');
+const Engineer = require('./Develop/lib/Engineer');
+const Intern = require('./Develop/lib/Intern');
 // all of our employees
 const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
-const html = require('./src/page-template');
-const template = require('./src/page-template');
-
+// our requires
+const html = require('./Develop/src/page-template');
+// our html page that will fill via fs
 var wholeteam = [];
-const e = require('express');
-// had help creating the two variables below and some of the requires i was missing
-
+// empty team array
+startMenu();
 
 function startMenu() {
         inquirer.prompt([{
@@ -20,10 +19,10 @@ function startMenu() {
                 message:"Choose one of the following options of what you would like to do.",
                 choices:["Start building your team","View current team","Exit"]}
                 // decided against giving each set of questions a function name then calling it ie : .prompt(startquestions)
-        ]).then((e) => {
-                switch(e.startMenu){
+        ]).then((response) => {
+                switch(response.startMenu){
                         case "Start building your team":
-                                newManagers();
+                                newManager();
                                 break;
                         case "View current team":
                                 // open browser window here
@@ -36,7 +35,7 @@ function startMenu() {
         });
         }
         // we will create all of our teams from here using external inputs from user
-        function newManagers() {
+        function newManager() {
                 inquirer.prompt([
                                 {
                                         type: "input",
@@ -64,7 +63,7 @@ function startMenu() {
                         ])
 .then(response => {
         let manager = new Manager(response.managerName,response.managerID,response.managerEmail,response.managerOffice);
-        // re-writing manager here
+        // collecting response, then pushing it into our whole team array
         wholeteam.push(manager);
         buildTeam();
 })
@@ -78,13 +77,14 @@ function startMenu() {
                                 message: "What kind of employee would you like to add?",
                                 choices:["Engineer!", "Intern!","I am done adding to my team, lets generate!"]
                         }
-                ]).then((userResults) => {
-                        switch(userResults.choice){
+                ]).then((response) => {
+                        switch(response.choice){
                                 case "Engineer!":
                                         newEngineer();
                                         // call the create eningeer func
                                         break;
                                 case "Intern!":
+                                        newIntern();
                                         // call the create intern func 
                                         break;
                                 case "Intern!","I am done adding to my team, lets generate!":
@@ -126,4 +126,44 @@ function newEngineer(){
                 })
 }
 // end of new engineer building
-function newIntern(){}
+function newIntern(){
+        inquirer.prompt([
+                {
+                        type: "input",
+                        name: "internName",
+                        message: "Please enter in your intern's name.",
+
+                },
+                {
+                        type: "input",
+                        name: "internID",
+                        message: "Please enter in intern's ID number.",
+
+                        
+                }, {
+                        type: "input",
+                        name: "internEmail",
+                        message: "Please enter in your intern's Email address.",
+
+                }, {
+                        type: "input",
+                        name: "internSchool",
+                        message: "Please enter in your intern's School.",
+                    
+                }
+        ])
+        .then(response => {
+                let intern = new Intern(response.internName, response.internID, response.internEmail, response.internSchool);
+                wholeteam.push(intern);
+                buildTeam();
+                // take the responses, push into the team array then run the build team function again to give the user the option to create another employee
+        })
+}
+function generateTeam(){
+        fs.writeFileSync("index.html", html(wholeteam), (err)=> {
+                if (err){
+                        console.log(err);
+                }
+        })
+
+}
