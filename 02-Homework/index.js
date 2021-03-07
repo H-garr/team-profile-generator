@@ -8,7 +8,7 @@ const fs = require('fs');
 // our requires
 const html = require('./Develop/src/page-template');
 // our html page that will fill via fs
-var wholeteam = [];
+var team = [];
 // empty team array
 startMenu();
 
@@ -17,10 +17,11 @@ function startMenu() {
                 type:"list",
                 name:"startmenu",
                 message:"Choose one of the following options of what you would like to do.",
-                choices:["Start building your team","View current team","Exit"]}
+                choices:["Start building your team","View current team","Exit"]
+        
                 // decided against giving each set of questions a function name then calling it ie : .prompt(startquestions)
-        ]).then((response) => {
-                switch(response.startMenu){
+        }]).then((response) => {
+                switch(response.startmenu){
                         case "Start building your team":
                                 newManager();
                                 break;
@@ -35,7 +36,7 @@ function startMenu() {
         });
         }
         // we will create all of our teams from here using external inputs from user
-        function newManager() {
+function newManager() {
                 inquirer.prompt([
                                 {
                                         type: "input",
@@ -64,9 +65,9 @@ function startMenu() {
 .then(response => {
         let manager = new Manager(response.managerName,response.managerID,response.managerEmail,response.managerOffice);
         // collecting response, then pushing it into our whole team array
-        wholeteam.push(manager);
+        team.push(manager);
         buildTeam();
-})
+})}
         // end of manager creation
         // then we call to build the team next here
        function buildTeam() {
@@ -88,10 +89,11 @@ function startMenu() {
                                         // call the create intern func 
                                         break;
                                 case "Intern!","I am done adding to my team, lets generate!":
+                                        generateTeam();
                                         // send them to a function which then writes the file for them and ends the process
                                 break;
                                 }});
-        }}
+        }
 function newEngineer(){
         inquirer.prompt([
                 {
@@ -113,14 +115,14 @@ function newEngineer(){
 
                 }, {
                         type: "input",
-                        name: "engineerGitHub",
+                        name: "engineerGithub",
                         message: "Please enter in your engineer's Git-Hub Username.",
                     
                 }
         ])
  .then(response => {
-                        let engineer = new Engineer(response.engineerName, response.engineerID, response.engineerEmail, response.engineerGitHub);
-                        wholeteam.push(engineer);
+                        let engineer = new Engineer(response.engineerName, response.engineerID, response.engineerEmail, response.engineerGithub);
+                        team.push(engineer);
                         buildTeam();
                         // take the responses, push into the team array then run the build team function again to give the user the option to create another employee
                 })
@@ -154,13 +156,13 @@ function newIntern(){
         ])
         .then(response => {
                 let intern = new Intern(response.internName, response.internID, response.internEmail, response.internSchool);
-                wholeteam.push(intern);
+                team.push(intern);
                 buildTeam();
                 // take the responses, push into the team array then run the build team function again to give the user the option to create another employee
         })
 }
 function generateTeam(){
-        fs.writeFileSync("index.html", html(wholeteam), (err)=> {
+        fs.writeFileSync("index.html", html(team), (err)=> {
                 if (err){
                         console.log(err);
                 }
