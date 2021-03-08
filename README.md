@@ -11,8 +11,8 @@ Make sure you install JEST with npm install --save-dev jest then run command lin
 Enjoy!
 
 ## Github repo and deployement link:
-GitHub Repo:
-<a href="https://github.com/H-garr/team-profile-generator/">github.com/H-garr/team-profile-generator</a>
+
+<a href="https://github.com/H-garr/team-profile-generator/">Repo</a>
 <a href="https://h-garr.github.io/team-profile-generator/">Deployment Link</a>
 
 ## Questions and Concerns:
