@@ -22,7 +22,7 @@ Contact me at :
 
 ## Walkthrough Video & Picture: 
 
-![Pic of HTML](./Assets/pic-of-html.png)
+![Pic of HTML](./02-homework/Assets/pic-of-html.png)
 <a href="https://drive.google.com/file/d/1JdUAnVyhyIqpnlBd1n7YNNJTKjD7KGGi/view">Video Here</a>
 
 ---
