@@ -3,9 +3,8 @@ const Engineer = require('./Develop/lib/Engineer');
 const Intern = require('./Develop/lib/Intern');
 // all of our employees
 const inquirer = require('inquirer');
-const path = require('path');
 const fs = require('fs');
-// our requires
+// our requires for the app to run smoothly
 const html = require('./Develop/src/page-template');
 // our html page that will fill via fs
 var team = [];
@@ -26,7 +25,7 @@ function startMenu() {
                                 newManager();
                                 break;
                         case "View current team":
-                                // open browser window here
+                                generateTeam();
                                 break;
                         case "Exit":
                                 console.log("Please press 'control' and 'C' to exit, See you next time!")
@@ -118,7 +117,7 @@ function newEngineer() {
                 }, {
                         type: "input",
                         name: "engineerGithub",
-                        message: "Please enter in your engineer's Git-Hub Username.",
+                        message: "Please enter in your engineer's GitHub Username.",
                 }
         ])
                 .then(response => {
@@ -158,6 +157,7 @@ function newIntern() {
                 .then(response => {
                         let intern = new Intern(response.internName, response.internID, response.internEmail, response.internSchool);
                         team.push(intern);
+                        // console.log(response.engineerGithub)
                         buildTeam();
                         // take the responses, push into the team array then run the build team function again to give the user the option to create another employee
                 })
@@ -172,3 +172,4 @@ function generateTeam() {
         })
 
 }
+// fs function to create add to/create the index.html file
