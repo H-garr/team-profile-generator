@@ -13,7 +13,7 @@ Enjoy!
 ## Github repo and deployement link:
 GitHub Repo:
 <a href="https://github.com/H-garr/team-profile-generator/">github.com/H-garr/team-profile-generator</a>
-<a href="https://github.com/H-garr/team-profile-generator/">Deployment Link</a>
+<a href="https://h-garr.github.io/team-profile-generator/">Deployment Link</a>
 
 ## Questions and Concerns:
 
